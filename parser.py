@@ -4,8 +4,32 @@
 
 import xml.etree.ElementTree as ET
 
-def parseXML(root):
+class BachInvention:
+	def __init__(self, title, key):
+		self.title = title
+		self.key = key
+		self.parts = []
 
+class Part:
+	def __init__(self, partID):
+		self.partID = partID
+		self.measures = []
+
+class Measure:
+	def __init__(self, number, timeSig):
+		self.number = number
+		self.timeSig = timeSig
+		self.notes = []
+
+class Note:
+	def __init__(self, position, duration, pitch, octave):
+		self.position = position
+		self.duration = duration
+		self.pitch = pitch
+		self.octave = octave
+
+def parseXML(root, title, key):
+	newInvention = BachInvention(title, key)
 	# Determine the number of divisions in the musicXML File
 	# 	Essentially the size of a quarter note
 	# 	Should not change within a single score, but may differ across scores
@@ -15,16 +39,17 @@ def parseXML(root):
 	# Iterate through each part
 	for part in root.findall('part'):
 		partID = part.get('id')
+		newPart = Part(part.get('id'))
 		
 		# Iterate through each measure and get a measure number
 		for measure in part.findall('measure'):
 			measureNumber = measure.get('number')
-			
+
 			# Iterate through all the measure's attributes
 			for attributes in measure.iter('attributes'):
 				
 
-				# Get time signature
+				# Get time signature - may not actually change
 				for time in attributes.findall('time'):
 					beats = time.find('beats').text
 					beatType = time.find('beat-type').text
@@ -32,6 +57,8 @@ def parseXML(root):
 
 			# May use to get note's exact position
 			measureLength = int(divisions) * int(beats)
+
+			newMeasure = Measure(measureNumber, timeSig)
 			
 			# Get the notes in the measure
 			noteNumber = 1
@@ -55,19 +82,30 @@ def parseXML(root):
 				else:
 					stepWithAlter = 'Rest'
 					octave = 0
-					
-				#print position, duration, stepWithAlter, octave
+				
+				newNote = Note(position, duration, stepWithAlter, octave)	
+				newMeasure.notes.append(newNote) 
 				
 				noteNumber = noteNumber + 1
 
+			newPart.measures.append(newMeasure)
 
-			#print partID, measureNumber, timeSig, measureLength
+		newInvention.parts.append(newPart)
+	
+	return newInvention
 
 def main():
-	#tree = ET.parse('testMusic.xml')
-	tree = ET.parse("musicXMLFiles/Bach Invention 1.xml")
-	root = tree.getroot()
-	parseXML(root)
+	test = ET.parse('testMusic.xml').getroot()
+	
+	invention1 = ET.parse("musicXMLFiles/Bach Invention 1.xml").getroot()
+	invention1 = parseXML(invention1, "Invention 1", "C Major")
+	
+	'''
+	testMeasures = invention1.parts[1].measures
+	for m in testMeasures:
+		for n in m.notes:
+			print n.pitch, n.duration
+	'''
 
 if __name__ == '__main__':
 	main()
