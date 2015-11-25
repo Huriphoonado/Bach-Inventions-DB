@@ -5,8 +5,9 @@
 import xml.etree.ElementTree as ET
 
 class BachInvention:
-	def __init__(self, title, key):
-		self.title = title
+	def __init__(self, number, book, key):
+		self.number = number
+		self.book = book
 		self.key = key
 		self.parts = []
 
@@ -28,8 +29,8 @@ class Note:
 		self.pitch = pitch
 		self.octave = octave
 
-def parseXML(root, title, key):
-	newInvention = BachInvention(title, key)
+def parseXML(root, number, book, key):
+	newInvention = BachInvention(number, book, key)
 	# Determine the number of divisions in the musicXML File
 	# 	Essentially the size of a quarter note
 	# 	Should not change within a single score, but may differ across scores
@@ -81,7 +82,7 @@ def parseXML(root, title, key):
 					stepWithAlter = step + alter
 				else:
 					stepWithAlter = 'Rest'
-					octave = 0
+					octave = None
 				
 				newNote = Note(position, duration, stepWithAlter, octave)	
 				newMeasure.notes.append(newNote) 
@@ -98,7 +99,7 @@ def main():
 	test = ET.parse('testMusic.xml').getroot()
 	
 	invention1 = ET.parse("musicXMLFiles/Bach Invention 1.xml").getroot()
-	invention1 = parseXML(invention1, "Invention 1", "C Major")
+	invention1 = parseXML(invention1, 1, 1, "C Major")
 	
 	'''
 	testMeasures = invention1.parts[1].measures
