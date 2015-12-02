@@ -37,7 +37,7 @@ class Note:
 
 def parseXML(root, number, book, key):
 	newInvention = BachInvention(number, book, key)
-	# Determine the number of divisions in the musicXML File
+	# Determine the number of divisions in the musicXML File (don't currently use)
 	# 	Essentially the size of a quarter note
 	# 	Should not change within a single score, but may differ across scores
 	# for attributes in root.iter('attributes'):
