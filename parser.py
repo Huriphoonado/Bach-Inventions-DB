@@ -153,5 +153,70 @@ def main():
 	populateDatabase(invention2)
 	checkDatabase()
 
+	invention3 = ET.parse("musicXMLFiles/Bach Invention 3.xml").getroot()
+	invention3 = parseXML(invention3, 3, 1, "D Major")
+	populateDatabase(invention3)
+	checkDatabase()
+
+	invention4 = ET.parse("musicXMLFiles/Bach Invention 4.xml").getroot()
+	invention4 = parseXML(invention4, 4, 1, "D Minor")
+	populateDatabase(invention4)
+	checkDatabase()
+
+	invention5 = ET.parse("musicXMLFiles/Bach Invention 5.xml").getroot()
+	invention5 = parseXML(invention5, 5, 1, "Eb Major")
+	populateDatabase(invention5)
+	checkDatabase()
+
+	invention6 = ET.parse("musicXMLFiles/Bach Invention 6.xml").getroot()
+	invention6 = parseXML(invention6, 6, 1, "E Major")
+	populateDatabase(invention6)
+	checkDatabase()
+
+	invention7 = ET.parse("musicXMLFiles/Bach Invention 7.xml").getroot()
+	invention7 = parseXML(invention7, 7, 1, "E Minor")
+	populateDatabase(invention7)
+	checkDatabase()
+
+	invention8 = ET.parse("musicXMLFiles/Bach Invention 8.xml").getroot()
+	invention8 = parseXML(invention8, 8, 1, "F Major")
+	populateDatabase(invention8)
+	checkDatabase()
+
+	invention9 = ET.parse("musicXMLFiles/Bach Invention 9.xml").getroot()
+	invention9 = parseXML(invention9, 9, 1, "F Minor")
+	populateDatabase(invention9)
+	checkDatabase()
+
+	invention10 = ET.parse("musicXMLFiles/Bach Invention 10.xml").getroot()
+	invention10 = parseXML(invention10, 10, 1, "G Major")
+	populateDatabase(invention10)
+	checkDatabase()
+
+	invention11 = ET.parse("musicXMLFiles/Bach Invention 11.xml").getroot()
+	invention11 = parseXML(invention11, 11, 1, "G Minor")
+	populateDatabase(invention11)
+	checkDatabase()
+
+	invention12 = ET.parse("musicXMLFiles/Bach Invention 12.xml").getroot()
+	invention12 = parseXML(invention12, 12, 1, "A Major")
+	populateDatabase(invention12)
+	checkDatabase()
+
+	invention13 = ET.parse("musicXMLFiles/Bach Invention 13.xml").getroot()
+	invention13 = parseXML(invention13, 13, 1, "A Minor")
+	populateDatabase(invention13)
+	checkDatabase()
+
+	invention14 = ET.parse("musicXMLFiles/Bach Invention 14.xml").getroot()
+	invention14 = parseXML(invention14, 14, 1, "Bb Major")
+	populateDatabase(invention14)
+	checkDatabase()
+
+	invention15 = ET.parse("musicXMLFiles/Bach Invention 15.xml").getroot()
+	invention15 = parseXML(invention15, 15, 1, "B Minor")
+	populateDatabase(invention15)
+	checkDatabase()
+
 if __name__ == '__main__':
 	main()

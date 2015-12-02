@@ -1,3 +1,7 @@
+## Score Notes
+
+Speedy Entry 6 for enharmonic equvalent. Speedy Entry 7 for empy measure rest.
+
 ## Installation
 
 First, create the Bach Inventions database by opening up a Python shell and calling the ```init_db()``` function from bachApp.py
@@ -23,6 +27,10 @@ One of the challenges with music XML is chords or places where an instrument is 
 Also, for simplicity I've key signatures from all pieces meaning that notes with sharps or flats are always indicated as such via the ```alter``` tag.
 
 I may have discovered a bug or at least a confusion point in musicXML. The Finale Music Notation Software automatically fills empty measures with rests, but by appearence alone. If the user does actually fill anything into a measure then nothing actually exists. This caused my parser to break when it discovered measures without any content. The solution is to go into the Finale score and replace the empty measure with whole rests.
+
+In Invention 6, I ignored the repeat signs.
+
+I avoided multi-part music intentionally to make parsing the music XML files much easier. [A description of how music XML handles multi-part music may be found here.](http://www.musicxml.com/tutorial/the-midi-compatible-part/multi-part-music/)
 
 ### Schema
 
