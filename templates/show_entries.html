@@ -2,11 +2,46 @@
 {% block body %}
   <ul class=entries>
   {% for entry in entries %}
-    <li><h2>{{ entry.title }}</h2>
-    {{ entry.key|safe }}
-    {{ entry.measures|safe }}
+    <li><h2>Invention {{ entry.title }}</h2>
+    <p>Key: {{ entry.key|safe }}</p>
+    <p>Measures: {{ entry.measures|safe }}</p>
+    <p>Time Signature: {{ entry.timeSig|safe }}</p>
+    <p>Pitch: {{ entry.pitch|safe }}</p>
+    <p>Rhythm: {{ entry.rhythm|safe }}</p>
+    <p>{{ graph(name="chart" + entry.title, data=entry.pitch) }}</p>
   {% else %}
-    <li><em>Not an Invention</em>
+    <li><em>No Inventions</em>
   {% endfor %}
   </ul>
 {% endblock %}
+
+{% macro input(name, value='', type='text', size=20) -%}
+    <input type="{{ type }}" name="{{ name }}" value="{{
+        value|e }}" size="{{ size }}">
+{%- endmacro %}
+
+{% macro graph(name, data) -%}
+<div class="chart", id="{{ name }}"></div>
+<script>
+var data2 = [4, 8, 15, 16, 23, 42];
+var data = "{{ data }}".split(",");
+var values = []
+var titles = []
+
+for (i = 0; i < data.length; i = i + 2) {
+  titles.push(data[i]);
+  values.push(Number(data[i+1]));
+}
+
+var x = d3.scale.linear()
+    .domain([0, d3.max(values)])
+    .range([0, 420]);
+
+d3.select("#{{ name }}")
+  .selectAll("div")
+    .data(values)
+  .enter().append("div")
+    .style("width", function(d) { return x(d) + "px"; })
+    .text(function(d) { return d; });
+</script>
+{%- endmacro %}

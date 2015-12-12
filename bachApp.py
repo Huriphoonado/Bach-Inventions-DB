@@ -44,13 +44,22 @@ def get_db_info():
 		i.append(measureCount[0][0])
 		
 		mostCommonTimeSig = query_db('SELECT timesig FROM measure WHERE inumber=? GROUP BY timesig ORDER BY COUNT(timesig) DESC LIMIT 1', [inum])
-		i.append(mostCommonTimeSig)
+		i.append(str(mostCommonTimeSig[0][0]))
 
 		mostUsedPitch = query_db('SELECT pitch, COUNT(pitch) AS pitch_occ FROM note WHERE inumber=? GROUP BY pitch ORDER BY pitch_occ DESC LIMIT 3', [inum])
-		i.append(mostUsedPitch)
+		ps = ''
+		for p in mostUsedPitch:
+			if ps != '':
+				ps = ps + ", "
+			ps = ps + str(p[0]) + ", " + str(p[1])
+			#ps.append([str(p[0]), p[1]])
+		i.append(ps)
 
 		mostUsedRhythm = query_db('SELECT duration, COUNT(duration) AS duration_occ FROM note WHERE inumber=? GROUP BY duration ORDER BY duration_occ DESC LIMIT 3', [inum])
-		i.append(mostUsedRhythm)
+		rs = []
+		for r in mostUsedRhythm:
+			rs.append([str(r[0]), r[1]])
+		i.append(rs)
 
 		more_info.append(i)
 
@@ -69,7 +78,7 @@ def teardown_request(exception):
 @app.route('/')
 def show_entries():
 	cur = get_db_info()
-	entries = [dict(title="Invention "+str(row[0]), key=row[1], measures=row[2]) for row in cur]
+	entries = [dict(title=str(row[0]), key=row[1], measures=row[2], timeSig=row[3], pitch=row[4], rhythm=row[5]) for row in cur]
 	return render_template('show_entries.html', entries=entries)
 
 if __name__ == '__main__':

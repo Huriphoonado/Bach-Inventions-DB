@@ -1,5 +1,5 @@
 # Willie Payne
-# Will Eventually parse a music.xml file
+# Will parse a music.xml file
 # Bach MIDI Files grabbed from: http://www.bachcentral.com/midiindexcomplete.html
 
 import xml.etree.ElementTree as ET
