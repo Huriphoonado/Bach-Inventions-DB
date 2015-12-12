@@ -2,9 +2,11 @@
 {% block body %}
   <ul class=entries>
   {% for entry in entries %}
-    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+    <li><h2>{{ entry.title }}</h2>
+    {{ entry.key|safe }}
+    {{ entry.measures|safe }}
   {% else %}
-    <li><em>No Inventions in the Database</em>
+    <li><em>Not an Invention</em>
   {% endfor %}
   </ul>
 {% endblock %}

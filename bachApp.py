@@ -21,6 +21,41 @@ def init_db():
 			db.cursor().executescript(f.read())
 		db.commit()
 
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = connect_db()
+    return db
+
+def query_db(query, args=(), one=False):
+    cur = get_db().execute(query, args)
+    rv = cur.fetchall()
+    cur.close()
+    return (rv[0] if rv else None) if one else rv
+
+def get_db_info():
+	basic_info = query_db('SELECT inumber, key from invention order by inumber asc')
+	more_info = []
+	for i in basic_info:
+		inum = str(i[0])
+		i = list(i)
+
+		measureCount = query_db('SELECT MAX(mnumber) FROM measure where inumber=?', [inum])
+		i.append(measureCount[0][0])
+		
+		mostCommonTimeSig = query_db('SELECT timesig FROM measure WHERE inumber=? GROUP BY timesig ORDER BY COUNT(timesig) DESC LIMIT 1', [inum])
+		i.append(mostCommonTimeSig)
+
+		mostUsedPitch = query_db('SELECT pitch, COUNT(pitch) AS pitch_occ FROM note WHERE inumber=? GROUP BY pitch ORDER BY pitch_occ DESC LIMIT 3', [inum])
+		i.append(mostUsedPitch)
+
+		mostUsedRhythm = query_db('SELECT duration, COUNT(duration) AS duration_occ FROM note WHERE inumber=? GROUP BY duration ORDER BY duration_occ DESC LIMIT 3', [inum])
+		i.append(mostUsedRhythm)
+
+		more_info.append(i)
+
+	return more_info
+
 @app.before_request
 def before_request():
 	g.db = connect_db()
@@ -33,8 +68,8 @@ def teardown_request(exception):
 
 @app.route('/')
 def show_entries():
-	cur = g.db.execute('select inumber, key from invention order by inumber asc')
-	entries = [dict(title="Invention "+str(row[0]), text=row[1]) for row in cur.fetchall()]
+	cur = get_db_info()
+	entries = [dict(title="Invention "+str(row[0]), key=row[1], measures=row[2]) for row in cur]
 	return render_template('show_entries.html', entries=entries)
 
 if __name__ == '__main__':

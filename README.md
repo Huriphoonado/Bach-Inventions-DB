@@ -1,10 +1,16 @@
-## Score Notes
+## Bach Inventions
 
-Speedy Entry 6 for enharmonic equvalent. Speedy Entry 7 for empy measure rest.
+
 
 ## Installation
 
-First, create the Bach Inventions database by opening up a Python shell and calling the ```init_db()``` function from bachApp.py
+First, make sure you have the required dependencies, namely [Flask, the Python Web framework used.](http://flask.pocoo.org)
+
+```
+$ pip install Flask
+```
+
+Then, create the Bach Inventions database by opening up a Python shell and calling the ```init_db()``` function from bachApp.py
 
 ```
 $ python
@@ -13,11 +19,25 @@ $ python
 >>> init_db()
 ```
 
-Then, run parser.py to parse the music XML files and store the Inventions in the database. It will begin printing feedack as it inserts into and queries the database.
+Then, run parser.py to parse the music XML files and store the Inventions in the database. It will begin printing feedack as it inserts into and queries the database. The output should look something like this:
 
 ```
 $ python parser.py 
-Database Connection Succesful. There are 482 notes in 1 Bach Inventions
+Database Connection Succesful: There are 482 notes in 1 Bach Invention(s).
+Database Connection Succesful: There are 1158 notes in 2 Bach Invention(s).
+Database Connection Succesful: There are 1683 notes in 3 Bach Invention(s).
+Database Connection Succesful: There are 2148 notes in 4 Bach Invention(s).
+Database Connection Succesful: There are 2898 notes in 5 Bach Invention(s).
+Database Connection Succesful: There are 3488 notes in 6 Bach Invention(s).
+Database Connection Succesful: There are 3988 notes in 7 Bach Invention(s).
+Database Connection Succesful: There are 4596 notes in 8 Bach Invention(s).
+Database Connection Succesful: There are 5198 notes in 9 Bach Invention(s).
+Database Connection Succesful: There are 5666 notes in 10 Bach Invention(s).
+Database Connection Succesful: There are 6251 notes in 11 Bach Invention(s).
+Database Connection Succesful: There are 6983 notes in 12 Bach Invention(s).
+Database Connection Succesful: There are 7576 notes in 13 Bach Invention(s).
+Database Connection Succesful: There are 8200 notes in 14 Bach Invention(s).
+Database Connection Succesful: There are 8691 notes in 15 Bach Invention(s).
 ```
 
 ## Notes
