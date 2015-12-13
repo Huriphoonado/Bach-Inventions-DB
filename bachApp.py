@@ -52,13 +52,14 @@ def get_db_info():
 			if ps != '':
 				ps = ps + ", "
 			ps = ps + str(p[0]) + ", " + str(p[1])
-			#ps.append([str(p[0]), p[1]])
 		i.append(ps)
 
-		mostUsedRhythm = query_db('SELECT duration, COUNT(duration) AS duration_occ FROM note WHERE inumber=? GROUP BY duration ORDER BY duration_occ DESC LIMIT 3', [inum])
-		rs = []
+		mostUsedRhythm = query_db('SELECT duration, COUNT(duration) AS duration_occ FROM note WHERE inumber=? GROUP BY duration ORDER BY duration_occ DESC LIMIT 2', [inum])
+		rs = ''
 		for r in mostUsedRhythm:
-			rs.append([str(r[0]), r[1]])
+			if rs != '':
+				rs = rs + ", "
+			rs = rs + str(r[0]) + ", " + str(r[1])
 		i.append(rs)
 
 		more_info.append(i)
