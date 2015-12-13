@@ -72,7 +72,7 @@ Getting the notes from a piece of music to a database and then to display in a w
 
 ### Schema
 
-For this project, I have designed the schema specifically for Bach Inventions. The schema could be expanded in the future to include a composer table and compositions that functionally depend on the composer. Primary keys could be the composer followed by the [opus number.](https://en.wikipedia.org/wiki/Opus_number). The primary key is in bold.
+For this project, I have designed the schema specifically for Bach Inventions. The schema could be expanded in the future to include a composer table and compositions that functionally depend on the composer. Primary keys could be the composer followed by the [opus number.](https://en.wikipedia.org/wiki/Opus_number). The primary key is in italics.
 
 * Invention (*inumber: int, book: int*, key: varchar)
   * Book refers to the collection of two-part vs three-part inventions (known as the Sinfonias).
