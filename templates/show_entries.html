@@ -2,24 +2,28 @@
 {% block body %}
   <ul class=entries>
   {% for entry in entries %}
-    <li><h2>Invention {{ entry.title }}</h2>
-    <p>Key: {{ entry.key|safe }}</p>
-    <p>Measures: {{ entry.measures|safe }}</p>
-    <p>Time Signature: {{ entry.timeSig|safe }}</p>
-    <p>Most Frequent Pitches:</p>
-    <p>{{ graph(name="chart" + entry.title, data=entry.pitch) }}</p>
-    <p>Most Frequent Durations:</p>
-    <p>{{ graph(name="dchart" + entry.title, data=entry.rhythm) }}</p>
+    <li><h2>Invention {{ entry.title }} <a href="javascript:showhide('area{{ entry.title }}')">(+)</a></h2>
+    <div id=area{{ entry.title }} style="display:none;">
+      <p>Key: {{ entry.key|safe }}</p>
+      <p>Measures: {{ entry.measures|safe }}</p>
+      <p>Time Signature: {{ entry.timeSig|safe }}</p>
+      <p>Most Frequent Pitches:</p>
+      <p>{{ graph(name="chart" + entry.title, data=entry.pitch) }}</p>
+      <p>Most Frequent Durations:</p>
+      <p>{{ graph(name="dchart" + entry.title, data=entry.rhythm) }}</p>
+    </div>
+    <script type="text/javascript">
+    function showhide(id) {
+      console.log(id)
+      var e = document.getElementById(id);
+      e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+    }
+    </script>
   {% else %}
     <li><em>No Inventions</em>
   {% endfor %}
   </ul>
 {% endblock %}
-
-{% macro input(name, value='', type='text', size=20) -%}
-    <input type="{{ type }}" name="{{ name }}" value="{{
-        value|e }}" size="{{ size }}">
-{%- endmacro %}
 
 {% macro graph(name, data) -%}
 <svg class="chart", id="{{ name }}"></svg>
